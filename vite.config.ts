@@ -156,8 +156,17 @@ export default defineConfig(({ command, isPreview }) => ({
     port: 8081,
     strictPort: true,
   },
-  resolve: { tsconfigPaths: true },
-  plugins: [
+  resolve: {{ tsconfigPaths: true },
+
+optimizeDeps: {
+  exclude: ["@electric-sql/pglite"],
+},
+
+plugins: [
+
+
+
+
     pgliteBootstrapPlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
@@ -170,7 +179,13 @@ export default defineConfig(({ command, isPreview }) => ({
     ...(command === "build" || isPreview
       ? [
           nitro({
-            preset: "vercel",
+  preset: "vercel",
+  serverDir: "./server",
+  externals: {
+    external: ["@electric-sql/pglite"],
+    traceInclude: ["node_modules/@electric-sql/pglite/dist/**"],
+  },
+}),
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
