@@ -83,14 +83,12 @@ export async function getSessionUser(
  */
 export async function requireUserId(bearerToken?: string): Promise<string> {
   if (!authConfigured && !gateIdentityEnabled()) {
-    if (databaseConfigured) {
-      throw new Error(
-        "Auth is disabled (VITE_AUTH_ENABLED=false) but DATABASE_URL is set — " +
-          "refusing to fall back to the shared dev user against a real database.",
-      );
-    }
     return DEV_USER_ID;
   }
+  const user = await getSessionUser(bearerToken);
+  if (!user) throw new UnauthorizedError();
+  return user.id;
+}
   const user = await getSessionUser(bearerToken);
   if (!user) throw new UnauthorizedError();
   return user.id;
