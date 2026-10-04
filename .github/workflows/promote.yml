@@ -1,0 +1,30 @@
+name: Install Alva at root
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Move Alva project to repository root
+        run: |
+          cp -a alva-upload/. .
+          rm -rf alva-upload
+          rm -f alva-github-upload.zip
+          rm -f .github/workflows/unpack.yml
+
+      - name: Commit project at root
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Move Alva project to root"
+          git push
