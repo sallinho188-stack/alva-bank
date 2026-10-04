@@ -176,16 +176,18 @@ plugins: [
     grokPwaPlugin(),
     tailwindcss(),
     tanstackStart(),
-    ...(command === "build" || isPreview
-  ? [
-      nitro({
-        preset: "vercel",
-        serverDir: "./server",
-        externals: {
-          external: ["@electric-sql/pglite"],
-          traceInclude: ["node_modules/@electric-sql/pglite/dist/**"],
-        },
-      }),
-    ]
-  : []),
-viteReact(),
+        ...(command === "build" || isPreview
+      ? [
+          nitro({
+            preset: "vercel",
+            serverDir: "./server",
+            externals: {
+              external: ["@electric-sql/pglite"],
+              traceInclude: ["node_modules/@electric-sql/pglite/dist/**"],
+            },
+          }),
+        ]
+      : []),
+    viteReact(),
+  ],
+}));
