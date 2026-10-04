@@ -194,16 +194,25 @@ function mapTx(row: TxRow): Tx {
   };
 }
 
-async function displayName(sql: Sql, userId: string, email: string | null): Promise<string> {
+async function displayName(
+  sql: Sql,
+  userId: string,
+  email: string | null,
+): Promise<string> {
+  if (!email) return "Cliente Alva";
+
   const rows = await sql<{ name: string | null; email: string | null }>`
     select name, email from "user" where id = ${userId} limit 1
   `;
+
   const name = rows[0]?.name?.trim();
   if (name) return name;
-  const fromEmail = (rows[0]?.email ?? email ?? "").split("@")[0];
+
+  const fromEmail = (rows[0]?.email ?? email).split("@")[0];
   if (fromEmail) {
     return fromEmail.charAt(0).toUpperCase() + fromEmail.slice(1);
   }
+
   return "Cliente Alva";
 }
 
