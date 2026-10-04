@@ -1,0 +1,19 @@
+node_modules/
+.vercel/
+.grok/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage/
+dist/
+.output/
+
+# Local database/cache
+.data/
+.pglite/
+
+# IDE
+.vscode/
+.idea/

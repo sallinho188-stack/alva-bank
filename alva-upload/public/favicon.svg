@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Alva">
+  <rect width="100" height="100" rx="22" fill="#090a0c"/>
+  <polygon fill="#f2f0ea" points="36,18 51.5,18 40,80 26,80"/>
+  <polygon fill="#f2f0ea" points="48.5,18 64,18 74,80 60,80"/>
+  <rect x="34" y="52" width="32" height="7" rx="1.2" fill="#c9d1c8"/>
+</svg>
